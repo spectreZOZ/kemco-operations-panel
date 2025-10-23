@@ -152,6 +152,63 @@
     }
   },
 
+  "Projects": {
+    "title": "Projects",
+    "addProject": "Add Project",
+
+    "projectForm": {
+      "title": "Add New Project",
+      "fields": {
+        "projectName": "Project Name",
+        "client": "Client",
+        "status": "Status",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "progress": "Progress"
+      },
+      "placeholders": {
+        "client": "Select a client",
+        "date": "YYYY-MM-DD"
+      },
+      "status": {
+        "active": "Active",
+        "done": "Completed",
+        "on-hold": "On Hold"
+      },
+      "errors": {
+        "projectNameRequired": "Project name is required",
+        "clientRequired": "Client is required",
+        "statusRequired": "Status is required",
+        "startDateRequired": "Start date is required",
+        "endDateRequired": "End date is required",
+        "progressRequired": "Progress is required",
+        "minProgress": "Progress must be between 0 and 100"
+      },
+      "noClients": "No clients found",
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…"
+      },
+      "success": "Project created successfully!",
+      "error": "Error creating project"
+    },
+
+    "table": {
+      "projectName": "Project Name",
+      "client": "Client",
+      "status": "Status",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "progress": "Progress",
+      "actions": "Actions"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+
   "Modals": {
     "delete": {
       "title": "Delete {name}",

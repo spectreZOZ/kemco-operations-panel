@@ -149,6 +149,61 @@
     }
   },
 
+  "Projects": {
+    "title": "المشاريع",
+    "addProject": "إضافة مشروع",
+    "projectForm": {
+      "title": "إضافة مشروع جديد",
+      "fields": {
+        "projectName": "اسم المشروع",
+        "client": "العميل",
+        "status": "الحالة",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "progress": "التقدم"
+      },
+      "placeholders": {
+        "client": "حدد عميل",
+        "date": "YYYY-MM-DD"
+      },
+      "status": {
+        "active": "نشط",
+        "done": "مكتمل",
+        "on-hold": "معلق"
+      },
+      "errors": {
+        "projectNameRequired": "اسم المشروع مطلوب",
+        "clientRequired": "العميل مطلوب",
+        "statusRequired": "الحالة مطلوبة",
+        "startDateRequired": "تاريخ البدء مطلوب",
+        "endDateRequired": "تاريخ الانتهاء مطلوب",
+        "progressRequired": "التقدم مطلوب",
+        "minProgress": "التقدم يجب ان يكون بين 0 و 100"
+      },
+      "noClients": "لم يتم العثور على عملاء",
+      "buttons": {
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جاري الحفظ..."
+      },
+      "success": "تم إنشاء المشروع بنجاح!",
+      "error": "حدث خطأ أثناء إنشاء المشروع"
+    },
+    "table": {
+      "projectName": "اسم المشروع",
+      "client": "العميل",
+      "status": "الحالة",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "progress": "التقدم",
+      "actions": "الإجراءات"
+    },
+    "buttons": {
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
+
   "Modals": {
     "delete": {
       "title": "حذف {name}",

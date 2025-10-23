@@ -1,5 +1,5 @@
 type Client = {
-  id: number;
+  id: string;
   name: string;
   company: string;
   email: string;

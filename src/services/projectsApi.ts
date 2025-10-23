@@ -10,6 +10,13 @@ export const projectsApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Project"],
     }),
+    getProject: builder.query<Project, number>({
+      query: (id) => ({
+        url: `projects/${id}?_expand=client&_embed=tasks`,
+        method: "GET",
+      }),
+      providesTags: ["Project"],
+    }),
     addProject: builder.mutation({
       query: (newProject) => ({
         url: "projects",
@@ -18,7 +25,28 @@ export const projectsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Project"],
     }),
+    updateProject: builder.mutation<Project, Project>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}`,
+        method: "PUT",
+        body: rest,
+      }),
+      invalidatesTags: ["Project"],
+    }),
+    deleteProject: builder.mutation<Project, number>({
+      query: (id) => ({
+        url: `projects/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Project"],
+    }),
   }),
 });
 
-export const { useGetProjectsQuery, useAddProjectMutation } = projectsApi;
+export const {
+  useGetProjectsQuery,
+  useGetProjectQuery,
+  useAddProjectMutation,
+  useUpdateProjectMutation,
+  useDeleteProjectMutation,
+} = projectsApi;

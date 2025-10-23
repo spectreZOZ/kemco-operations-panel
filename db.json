@@ -39,29 +39,13 @@
   ],
   "projects": [
     {
-      "id": "1",
-      "name": "Website Redesign",
-      "clientId": 1,
-      "status": "Active",
-      "startDate": "2024-01-10",
-      "endDate": "2024-05-10",
-      "progress": 70,
-      "developerIds": [
-        1,
-        2
-      ]
-    },
-    {
-      "id": "2",
-      "name": "App Launch",
-      "clientId": 2,
-      "status": "Planning",
-      "startDate": "2024-03-01",
-      "endDate": "2024-07-30",
-      "progress": 25,
-      "developerIds": [
-        3
-      ]
+      "id": "0638",
+      "name": "Ziad Ahmed Project",
+      "clientId": "b3c1",
+      "status": "on-hold",
+      "startDate": "2025-10-09",
+      "endDate": "2025-10-12",
+      "progress": 0
     }
   ],
   "tasks": [
