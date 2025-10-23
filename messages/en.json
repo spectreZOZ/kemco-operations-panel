@@ -94,7 +94,17 @@
       "developers": "Developers",
       "pendingTasks": "Pending Tasks"
     },
-    "teamActivity": "Team Activity"
+    "teamActivity": "Team Activity",
+    "recentProjects": "Recent Projects",
+    "viewAll": "View All",
+    "quickActions": {
+      "title": "Quick Actions",
+      "actions": {
+        "addClient": "Add Client",
+        "addDeveloper": "Add Developer",
+        "newProject": "New Project"
+      }
+    }
   },
 
   "Sidebar": {

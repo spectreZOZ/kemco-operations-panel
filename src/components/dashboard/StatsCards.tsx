@@ -1,22 +1,22 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock4, Code2, FolderKanban, Users } from "lucide-react";
 
-import { useGetClientsQuery } from "@/src/services/clientsApi";
 import { useGetProjectsQuery } from "@/src/services/projectsApi";
 import { useGetTasksQuery } from "@/src/services/tasksApi";
 import { useTranslations } from "next-intl";
 
 export default function StatsCards({
   developers,
+  clients,
 }: {
   developers: Developer[];
+  clients: Client[];
 }) {
   const t = useTranslations("Dashboard");
 
   const { data: tasks } = useGetTasksQuery({
     status: "In Progress",
   });
-  const { data: clients } = useGetClientsQuery("");
   const { data: projects } = useGetProjectsQuery("Active");
 
   const stats = [
@@ -55,7 +55,10 @@ export default function StatsCards({
             <CardTitle className="text-lg font-medium">
               {t(`stats.${stat.key}`)}
             </CardTitle>
-            <stat.icon className={`h-5 w-5 ${stat.color}`} />
+            <stat.icon
+              size={40}
+              className={`${stat.color} bg-primary/10 p-2 rounded-md`}
+            />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stat.value}</div>

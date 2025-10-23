@@ -93,7 +93,17 @@
       "developers": "المطورون",
       "pendingTasks": "المهام المعلقة"
     },
-    "teamActivity": "نشاط الفريق"
+    "teamActivity": "نشاط الفريق",
+    "recentProjects": "المشاريع الحديثة",
+    "viewAll": "اظهار الكل",
+    "quickActions": {
+      "title": "اجراءات سريعة",
+      "actions": {
+        "addClient": "اضافة عميل",
+        "addDeveloper": "اضافة مطور",
+        "newProject": "مشروع جديد"
+      }
+    }
   },
 
   "Sidebar": {

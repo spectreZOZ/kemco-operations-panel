@@ -1,40 +1,58 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import Link from "next/link";
 import { Progress } from "@/components/ui/progress";
+import { useGetProjectsQuery } from "@/src/services/projectsApi";
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
-const projects = [
-  {
-    name: "E-commerce Platform",
-    company: "TechCorp Inc.",
-    color: "bg-blue-500",
-    progress: 75,
-  },
-  {
-    name: "Mobile Banking App",
-    company: "FinanceFirst Bank",
-    color: "bg-green-500",
-    progress: 90,
-  },
-  {
-    name: "Analytics Dashboard",
-    company: "DataViz Solutions",
-    color: "bg-yellow-500",
-    progress: 45,
-  },
-];
+export default function RecentProjects({ clients }: { clients: Client[] }) {
+  const t = useTranslations("Dashboard");
+  const { data: projectsData } = useGetProjectsQuery("");
 
-export default function RecentProjects() {
+  const colors = [
+    "bg-blue-500",
+    "bg-red-500",
+    "bg-green-500",
+    "bg-yellow-500",
+    "bg-purple-500",
+    "bg-pink-500",
+    "bg-indigo-500",
+    "bg-orange-500",
+  ];
+
+  const projects = useMemo(() => {
+    return (
+      projectsData?.map((projectData) => {
+        const client = clients?.find(
+          (c) => Number(c.id) === Number(projectData?.clientId)
+        );
+
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+        return {
+          name: projectData.name,
+          company: client?.company,
+          color: randomColor,
+          progress: projectData?.progress,
+        };
+      }) || []
+    );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectsData, clients]);
+
   return (
-    <Card>
+    <Card className="w-full h-full">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Recent Projects</CardTitle>
-        <a href="#" className="text-sm text-primary hover:underline">
-          View All
-        </a>
+        <CardTitle>{t("recentProjects")}</CardTitle>
+        <Link href="/projects" className="text-sm text-primary hover:underline">
+          {t("viewAll")}
+        </Link>
       </CardHeader>
       <CardContent className="space-y-4">
-        {projects.map((p) => (
+        {projects?.map((p) => (
           <div key={p.name} className="space-y-1">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">

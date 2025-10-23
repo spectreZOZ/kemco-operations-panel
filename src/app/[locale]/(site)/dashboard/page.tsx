@@ -4,12 +4,14 @@ import QuickActions from "@/components/dashboard/QuickActions";
 import RecentProjects from "@/components/dashboard/RecentProjects";
 import StatsCards from "@/components/dashboard/StatsCards";
 import TeamActivity from "@/components/dashboard/TeamActivity";
+import { useGetClientsQuery } from "@/src/services/clientsApi";
 import { useGetDevelopersQuery } from "@/src/services/developersApi";
 import { useTranslations } from "next-intl";
 
 export default function DashboardPage() {
   const t = useTranslations("Dashboard");
   const { data: developers } = useGetDevelopersQuery("");
+  const { data: clients } = useGetClientsQuery("");
 
   return (
     <div className="p-6 space-y-6">
@@ -19,17 +21,22 @@ export default function DashboardPage() {
         <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </div>
 
-      <StatsCards developers={developers} />
+      <StatsCards developers={developers} clients={clients} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left side */}
-        <div className="lg:col-span-2 space-y-6">
-          <RecentProjects />
-          <QuickActions />
+      <div className="flex flex-col gap-6 w-full h-full">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1">
+            <TeamActivity developers={developers} />
+          </div>
+
+          <div className="flex-2">
+            <RecentProjects clients={clients} />
+          </div>
         </div>
 
-        {/* Right side */}
-        <TeamActivity developers={developers} />
+        <div className="col-span-3">
+          <QuickActions />
+        </div>
       </div>
     </div>
   );

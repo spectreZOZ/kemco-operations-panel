@@ -2,7 +2,7 @@ import { apiSlice } from "./apiSlice";
 
 export const projectsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProjects: builder.query({
+    getProjects: builder.query<Project[], string>({
       query: (status?: string) => ({
         url: "projects?_expand=client&_embed=tasks",
         method: "GET",
