@@ -6,6 +6,10 @@ export const clientsApi = apiSlice.injectEndpoints({
       query: () => "clients",
       providesTags: ["Client"],
     }),
+    getClient: builder.query<Client, string>({
+      query: (id) => `clients/${id}`,
+      providesTags: ["Client"],
+    }),
     addClient: builder.mutation({
       query: (newClient) => ({
         url: "clients",
@@ -34,6 +38,7 @@ export const clientsApi = apiSlice.injectEndpoints({
 
 export const {
   useGetClientsQuery,
+  useGetClientQuery,
   useAddClientMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,

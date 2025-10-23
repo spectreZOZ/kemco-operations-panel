@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Alice Green",
       "username": "alice",
       "email": "alice@greentech.com",
@@ -12,56 +12,61 @@
       "company": "GreenTech"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Bob Smith",
       "username": "bob",
       "email": "bob@example.com",
       "password": "1234",
       "role": "developer",
-      "skills": ["React", "Node.js"]
+      "skills": [
+        "React",
+        "Node.js"
+      ]
     }
   ],
   "clients": [
     {
-      "id": 1,
-      "name": "Alice Green",
-      "company": "GreenTech",
-      "email": "alice@greentech.com",
-      "phone": "555-1234"
-    },
-    {
-      "id": 2,
-      "name": "Bob Smith",
-      "company": "Smith Solutions",
-      "email": "bob@smithsol.com",
-      "phone": "555-9876"
+      "projects": [
+        1,
+        2
+      ],
+      "phone": "+201286334293",
+      "email": "spectreziad@gmail.com",
+      "company": "Company",
+      "name": " 2 Ziad Ahmed",
+      "id": "b3c1"
     }
   ],
   "projects": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Website Redesign",
       "clientId": 1,
       "status": "Active",
       "startDate": "2024-01-10",
       "endDate": "2024-05-10",
       "progress": 70,
-      "developerIds": [1, 2]
+      "developerIds": [
+        1,
+        2
+      ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "App Launch",
       "clientId": 2,
       "status": "Planning",
       "startDate": "2024-03-01",
       "endDate": "2024-07-30",
       "progress": 25,
-      "developerIds": [3]
+      "developerIds": [
+        3
+      ]
     }
   ],
   "tasks": [
     {
-      "id": 1,
+      "id": "1",
       "projectId": 1,
       "developerIds": 1,
       "title": "Design mockups",
@@ -69,7 +74,7 @@
       "createdAt": "2025-05-01T10:00:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "projectId": 1,
       "developerIds": 2,
       "title": "Frontend coding",
@@ -79,22 +84,37 @@
   ],
   "developers": [
     {
-      "id": 1,
+      "id": "1",
       "name": "John Doe",
-      "skills": ["React", "Node.js"],
-      "projectIds": [1]
+      "skills": [
+        "React",
+        "Node.js"
+      ],
+      "projectIds": [
+        1
+      ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Mary Jane",
-      "skills": ["Angular", "UI/UX"],
-      "projectIds": [1]
+      "skills": [
+        "Angular",
+        "UI/UX"
+      ],
+      "projectIds": [
+        1
+      ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Charlie Puth",
-      "skills": ["Python", "Django"],
-      "projectIds": [2]
+      "skills": [
+        "Python",
+        "Django"
+      ],
+      "projectIds": [
+        2
+      ]
     }
   ]
 }

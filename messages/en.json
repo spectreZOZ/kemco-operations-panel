@@ -107,6 +107,69 @@
     }
   },
 
+  "Clients": {
+    "title": "Clients",
+    "addClient": "Add Client",
+
+    "clientForm": {
+      "title": "Add New Client",
+      "fields": {
+        "name": "Name",
+        "company": "Company",
+        "email": "Email",
+        "phone": "Phone",
+        "projects": "Projects"
+      },
+      "errors": {
+        "nameRequired": "Name is required",
+        "companyRequired": "Company is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email address",
+        "phoneRequired": "Phone is required",
+        "projectsRequired": "Select at least one project"
+      },
+      "noProjects": "No open projects found",
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…"
+      },
+      "success": "Client created successfully!",
+      "error": "Error creating client"
+    },
+
+    "table": {
+      "name": "Name",
+      "company": "Company",
+      "email": "Email",
+      "phone": "Phone",
+      "projects": "Projects",
+      "actions": "Actions"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+
+  "Modals": {
+    "delete": {
+      "title": "Delete {name}",
+      "description": "Are you sure you want to delete {name}? This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
+  },
+
+  "Toasts": {
+    "deleteSuccessfully": "{name} Deleted successfully.",
+    "updateSuccessfully": "{name} Updated successfully.",
+    "createSuccessfully": "{name} Created successfully.",
+    "deleteFailed": "Failed to delete {name}.",
+    "updateFailed": "Failed to update {name}.",
+    "createFailed": "Failed to create {name}."
+  },
+
   "Sidebar": {
     "subtitle": "Project Management",
     "role": "Admin",
@@ -118,5 +181,7 @@
       "tasks": "Tasks",
       "developers": "Developers"
     }
-  }
+  },
+  "loading": "Loading...",
+  "noData": "No data available."
 }

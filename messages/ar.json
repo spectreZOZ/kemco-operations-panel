@@ -106,6 +106,67 @@
     }
   },
 
+  "Clients": {
+    "title": "العملاء",
+    "addClient": "إضافة عميل",
+    "clientForm": {
+      "title": "إضافة عميل جديد",
+      "fields": {
+        "name": "الاسم",
+        "company": "الشركة",
+        "email": "البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "projects": "المشاريع"
+      },
+      "errors": {
+        "nameRequired": "الاسم مطلوب",
+        "companyRequired": "اسم الشركة مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "أدخل بريداً إلكترونياً صالحاً",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "projectsRequired": "يجب اختيار مشروع واحد على الأقل"
+      },
+      "noProjects": "لا توجد مشاريع مفتوحة",
+      "buttons": {
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ…"
+      },
+      "success": "تم إنشاء العميل بنجاح!",
+      "error": "حدث خطأ أثناء إنشاء العميل"
+    },
+    "table": {
+      "name": "الاسم",
+      "company": "الشركة",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "projects": "المشاريع",
+      "actions": "الاجراءات"
+    },
+    "buttons": {
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
+
+  "Modals": {
+    "delete": {
+      "title": "حذف {name}",
+      "description": "هل أنت متأكد من أنك تريد حذف {name}؟ لا يمكن التراجع عن هذا الإجراء.",
+      "confirm": "حذف",
+      "cancel": "إلغاء"
+    }
+  },
+
+  "Toasts": {
+    "deleteSuccessfully": "تم حذف {name} بنجاح.",
+    "updateSuccessfully": "تم تحديث {name} بنجاح.",
+    "createSuccessfully": "تم إنشاء {name} بنجاح.",
+    "deleteFailed": "فشل حذف {name}.",
+    "updateFailed": "فشل تحديث {name}.",
+    "createFailed": "فشل إنشاء {name}."
+  },
+
   "Sidebar": {
     "subtitle": "إدارة المشاريع",
     "role": "مشرف",
@@ -117,5 +178,7 @@
       "tasks": "المهام",
       "developers": "المطورون"
     }
-  }
+  },
+  "loading": "جارٍ التحميل...",
+  "noData": "لا يوجد بيانات."
 }

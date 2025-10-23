@@ -4,4 +4,5 @@ type Client = {
   company: string;
   email: string;
   phone: string;
+  projects: number[];
 };
