@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@public/*": ["./public/*"],
+      "@/components/*": ["./src/components/*"],
+      "@CSS/*": ["./src/CSS/*"],
+      "@Messages/*": ["./messages/*"]
     }
   },
   "include": [
@@ -28,7 +32,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    ".next\\dev/types/**/*.ts",
+    ".next\\dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,112 @@
+{
+  "dark": "Dark",
+  "light": "Light",
+  "Login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to your account",
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "placeholders": {
+      "email": "Enter your email",
+      "password": "Enter your password"
+    },
+    "remember": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "button": {
+      "signIn": "Sign In",
+      "loading": "Loading..."
+    },
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "alert": {
+      "success": "Logged in successfully!"
+    },
+    "errors": {
+      "emailInvalid": "Enter a valid email address",
+      "emailRequired": "Email is required",
+      "passwordMin": "Password must be at least {min} characters",
+      "passwordRequired": "Password is required",
+      "invalidCredentials": "Invalid credentials"
+    }
+  },
+
+  "Register": {
+    "title": "Create an Account",
+    "subtitle": "Join the KemCo team or register as an admin",
+    "fields": {
+      "name": "Full Name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "role": "Role",
+      "company": "Company",
+      "phone": "Phone",
+      "skills": "Skills (comma separated)"
+    },
+    "placeholders": {
+      "name": "Enter your full name",
+      "username": "Enter a username",
+      "email": "Enter your email address",
+      "password": "Enter your password",
+      "confirmPassword": "Re-enter your password",
+      "company": "Enter your company name",
+      "phone": "Enter phone number",
+      "skills": "Example: React, Node.js, Design"
+    },
+    "roles": {
+      "admin": "Administrator",
+      "developer": "Developer"
+    },
+    "hints": {
+      "skills": "Separate skills with commas."
+    },
+    "button": {
+      "register": "Register",
+      "loading": "Creating account..."
+    },
+    "alreadyAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "alert": {
+      "success": "Registration successful!",
+      "failure": "Registration failed. Please try again."
+    },
+    "errors": {
+      "nameRequired": "Name is required.",
+      "usernameRequired": "Username is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "emailRequired": "Email is required.",
+      "passwordMin": "Password must be at least {min} characters.",
+      "passwordRequired": "Password is required.",
+      "passwordMismatch": "Passwords do not match.",
+      "confirmRequired": "Please confirm your password."
+    }
+  },
+
+  "Dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Welcome back! Here’s what’s happening with your projects.",
+    "stats": {
+      "totalClients": "Total Clients",
+      "activeProjects": "Active Projects",
+      "developers": "Developers",
+      "pendingTasks": "Pending Tasks"
+    },
+    "teamActivity": "Team Activity"
+  },
+
+  "Sidebar": {
+    "subtitle": "Project Management",
+    "role": "Admin",
+    "sheetTitle": "Navigation Menu",
+    "links": {
+      "dashboard": "Dashboard",
+      "clients": "Clients",
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "developers": "Developers"
+    }
+  }
+}
