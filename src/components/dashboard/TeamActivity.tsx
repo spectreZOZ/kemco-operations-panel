@@ -40,30 +40,36 @@ export default function TeamActivity({
         <CardTitle>{t("teamActivity")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {activities
-          ?.map((a, index) => {
-            const localizedDayjs = dayjs(a.time).locale(locale);
+        {activities?.length > 0 ? (
+          activities
+            ?.map((a, index) => {
+              const localizedDayjs = dayjs(a.time).locale(locale);
 
-            return (
-              <div
-                key={`activity-${index + 1}`}
-                className="flex items-start gap-3"
-              >
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={`https://i.pravatar.cc/150?u=${index}`} />
-                  <AvatarFallback>{a?.name?.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">{a.name}</p>
-                  <p className="text-xs text-muted-foreground">{a.action}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {localizedDayjs.fromNow()}
-                  </p>
+              return (
+                <div
+                  key={`activity-${index + 1}`}
+                  className="flex items-start gap-3"
+                >
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={`https://i.pravatar.cc/150?u=${index}`} />
+                    <AvatarFallback>{a?.name?.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm font-medium">{a.name}</p>
+                    <p className="text-xs text-muted-foreground">{a.action}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {localizedDayjs.fromNow()}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })
-          .slice(0, 5)}
+              );
+            })
+            .slice(0, 5)
+        ) : (
+          <p className="text-sm text-muted-foreground text-center">
+            {t("noActivity")}
+          </p>
+        )}
       </CardContent>
     </Card>
   );

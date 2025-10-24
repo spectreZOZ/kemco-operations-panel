@@ -14,9 +14,8 @@ export default function StatsCards({
 }) {
   const t = useTranslations("Dashboard");
 
-  const { data: tasks } = useGetTasksQuery({
-    status: "In Progress",
-  });
+  const { data: tasks } = useGetTasksQuery({});
+  const pendingTasks = tasks?.filter((task: Task) => task.status !== "done");
   const { data: projects } = useGetProjectsQuery("Active");
 
   const stats = [
@@ -40,7 +39,7 @@ export default function StatsCards({
     },
     {
       key: "pendingTasks",
-      value: tasks?.length || 0,
+      value: pendingTasks?.length || 0,
       change: "No change",
       icon: Clock4,
       color: "text-yellow-500",

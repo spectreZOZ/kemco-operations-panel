@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FolderPlus, Plus, UserPlus } from "lucide-react";
+import { FolderPlus, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 const actions = [
   { label: "addClient", icon: Plus, href: "/clients/add" },
   { label: "newProject", icon: FolderPlus, href: "/projects/add" },
-  { label: "addDeveloper", icon: UserPlus, href: "/developers/add" },
 ];
 
 export default function QuickActions() {
@@ -20,7 +19,7 @@ export default function QuickActions() {
         <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {actions.map((action) => (
             <Button
               key={action.label}

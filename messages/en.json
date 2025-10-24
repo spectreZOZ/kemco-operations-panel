@@ -94,6 +94,7 @@
       "developers": "Developers",
       "pendingTasks": "Pending Tasks"
     },
+    "noActivity": "No activity found",
     "teamActivity": "Team Activity",
     "recentProjects": "Recent Projects",
     "viewAll": "View All",
