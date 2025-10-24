@@ -13,14 +13,14 @@ export default async function middleware(request: NextRequest) {
   const isAuthPage = authPages.some((p) => url.includes(p));
 
   // 🚫 Not logged in → kick to /login
-  // if (!isAuthPage && !logged) {
-  //   return NextResponse.redirect(new URL("/login", request.url));
-  // }
+  if (!isAuthPage && !logged) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   // ✅ Already logged in, but hitting login/register → bounce home
-  // if (isAuthPage && logged) {
-  //   return NextResponse.redirect(new URL("/dashboard", request.url));
-  // }
+  if (isAuthPage && logged) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
 
   // Step 1: Use the incoming request
   const defaultLocale = (request.headers.get("accept-language") ?? "ar")

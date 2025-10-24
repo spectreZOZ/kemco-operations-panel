@@ -7,6 +7,6 @@ export const apiSlice = createApi({
     baseUrl: SERVER_URL || "http://localhost:5000/",
     prepareHeaders: BASE_HEADERS,
   }),
-  tagTypes: ["Client", "Project", "Task", "Developer"],
+  tagTypes: ["Client", "Project", "Task", "Developer", "User"],
   endpoints: () => ({}), // extended in separate files
 });

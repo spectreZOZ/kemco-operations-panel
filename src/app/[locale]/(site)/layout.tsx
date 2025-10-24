@@ -1,6 +1,10 @@
+"use client";
+
 import LocalizationButton from "@/src/components/LocaleSwitcher";
 import Sidebar from "@/src/components/layout/Sidebar";
 import { ThemeToggle } from "@/src/components/theme-toggle";
+import Transition from "@/src/components/Transition";
+import useAccessGuard from "@/src/hooks/useGuard";
 import { useLocale } from "next-intl";
 
 export default function SiteLayout({
@@ -9,6 +13,7 @@ export default function SiteLayout({
   children: React.ReactNode;
 }>) {
   const locale = useLocale();
+  useAccessGuard();
   return (
     <main
       className={`w-full h-full min-h-screen flex justify-between items-start`}
@@ -23,7 +28,7 @@ export default function SiteLayout({
           <ThemeToggle />
           <LocalizationButton />
         </div>
-        {children}
+        <Transition>{children}</Transition>
       </div>
     </main>
   );

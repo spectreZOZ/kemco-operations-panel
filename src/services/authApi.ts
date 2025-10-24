@@ -31,7 +31,10 @@ export const authApi = apiSlice.injectEndpoints({
         const token = `mock-token-${user.id}-${Date.now()}`;
 
         if (typeof window !== "undefined") {
-          localStorage.setItem("authUser", JSON.stringify({ ...user, token }));
+          localStorage.setItem(
+            "authUser",
+            JSON.stringify({ ...user, password: undefined, token })
+          );
           document.cookie = `authToken=${token}; path=/;`;
         }
 
@@ -40,7 +43,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     registerUser: builder.mutation({
       queryFn: async (credentials, _api, _extra, baseQuery) => {
-        const { email, username } = credentials;
+        const { email, username, role } = credentials;
 
         // 1️⃣ Read existing users
         const result = await baseQuery("users");
@@ -78,6 +81,23 @@ export const authApi = apiSlice.injectEndpoints({
 
         if (postResult.error) return { error: postResult.error };
 
+        // 💥 if developer role, also add to /developers
+        if (role === "developer") {
+          await baseQuery({
+            url: "developers",
+            method: "POST",
+            body: {
+              id: newUser.id,
+              name: newUser.name,
+              email: newUser.email,
+              skills: newUser.skills ?? [],
+              phone: newUser.phone ?? "",
+              company: newUser.company ?? "",
+              userId: newUser.id, // backlink to user
+            },
+          });
+        }
+
         // 5️⃣ Persist locally for convenience
         if (typeof window !== "undefined") {
           localStorage.setItem("authUser", JSON.stringify(newUser));
@@ -86,7 +106,20 @@ export const authApi = apiSlice.injectEndpoints({
         return { data: newUser };
       },
     }),
+
+    getUser: builder.query({
+      query: (id) => ({
+        url: `users`,
+        method: "GET",
+        params: { id },
+      }),
+      providesTags: ["User"],
+    }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useGetUserQuery,
+} = authApi;

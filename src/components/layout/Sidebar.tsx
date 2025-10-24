@@ -6,7 +6,6 @@ import {
   FolderKanban,
   LayoutDashboard,
   ListTodo,
-  LogOut,
   Menu,
   Users,
   X,
@@ -18,17 +17,35 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { UserAccess, canAccess, getAuthUser } from "@/src/utils/auth";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import LogoutAlert from "../modals/LogoutAlert";
 import { cn } from "@/src/lib/utils";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-function SidebarMenu({ onNavigate }: { onNavigate?: () => void }) {
+function SidebarMenu({
+  onNavigate,
+  authUser,
+}: {
+  onNavigate?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  authUser: any;
+}) {
   const pathname = usePathname();
   const t = useTranslations("Sidebar");
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    async function getPage() {
+      setMounted(true);
+    }
+
+    getPage();
+  }, []);
+  const role: keyof typeof UserAccess = authUser?.role ?? "guest";
 
   const navItems = [
     { key: "dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -43,19 +60,24 @@ function SidebarMenu({ onNavigate }: { onNavigate?: () => void }) {
       {navItems.map((item) => {
         const Icon = item.icon;
         const active = pathname.includes(item.href);
+        const canView = canAccess(role, item.key, "GET");
+
         return (
-          <Link
-            key={item.key}
-            href={item.href}
-            onClick={onNavigate}
-            className={cn(
-              "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors hover:bg-white/15",
-              active && "bg-white/25 font-medium"
-            )}
-          >
-            <Icon className="h-4 w-4" />
-            {t(`links.${item.key}`)}
-          </Link>
+          mounted &&
+          canView && (
+            <Link
+              key={item.key}
+              href={item.href}
+              onClick={onNavigate}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors hover:bg-white/15",
+                active && "bg-white/25 font-medium"
+              )}
+            >
+              <Icon className="h-4 w-4" />
+              {t(`links.${item.key}`)}
+            </Link>
+          )
         );
       })}
     </nav>
@@ -63,7 +85,17 @@ function SidebarMenu({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 function SidebarBody() {
+  const [mounted, setMounted] = useState(false);
   const t = useTranslations("Sidebar");
+  const authUser = getAuthUser();
+
+  useEffect(() => {
+    async function getPage() {
+      setMounted(true);
+    }
+
+    getPage();
+  }, []);
 
   return (
     <div className="flex flex-col justify-between h-full p-4 text-white bg-primary-dark dark:bg-background">
@@ -72,22 +104,30 @@ function SidebarBody() {
           <h1 className="text-xl font-bold">KEMCO</h1>
           <p className="text-xs text-muted-foreground">{t("subtitle")}</p>
         </div>
-        <SidebarMenu />
+        <SidebarMenu authUser={authUser} />
       </div>
 
-      <div className="flex items-center justify-between p-2 mt-6 rounded-md hover:bg-white/10 transition">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="https://i.pravatar.cc/40" />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          <div className="leading-tight">
-            <p className="text-sm font-medium">John Doe</p>
-            <p className="text-xs text-muted-foreground">{t("role")}</p>
+      {mounted && (
+        <div className="flex items-center justify-between p-2 mt-6 rounded-md hover:bg-white/10 transition">
+          <div className="flex items-center gap-3">
+            <Avatar className="h-8 w-8">
+              <AvatarImage
+                src={`https://i.pravatar.cc/150?u=${authUser?.id}`}
+              />
+              <AvatarFallback>{authUser?.name[0] || "?"}</AvatarFallback>
+            </Avatar>
+            <div className="leading-tight">
+              <p className="text-sm font-medium">{authUser?.name}</p>
+              {authUser?.role && (
+                <p className="text-xs text-muted-foreground">
+                  {t(`roles.${authUser?.role}`)}
+                </p>
+              )}
+            </div>
           </div>
+          <LogoutAlert />
         </div>
-        <LogOut className="h-4 w-4 text-muted-foreground" />
-      </div>
+      )}
     </div>
   );
 }

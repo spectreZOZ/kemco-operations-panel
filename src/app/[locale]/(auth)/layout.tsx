@@ -1,5 +1,6 @@
 import LocalizationButton from "@/src/components/LocaleSwitcher";
 import { ThemeToggle } from "@/src/components/theme-toggle";
+import Transition from "@/src/components/Transition";
 
 export default async function AuthLayout({
   children,
@@ -14,7 +15,9 @@ export default async function AuthLayout({
         <LocalizationButton />
       </div>
       <div className="grow w-full h-full flex items-center justify-center p-4">
-        {children}
+        <Transition className="w-full h-full flex justify-center ">
+          {children}
+        </Transition>
       </div>
     </main>
   );

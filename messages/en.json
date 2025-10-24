@@ -280,6 +280,12 @@
       "description": "Are you sure you want to delete {name}? This action cannot be undone.",
       "confirm": "Delete",
       "cancel": "Cancel"
+    },
+    "logout": {
+      "title": "Logout",
+      "description": "Are you sure you want to logout?",
+      "confirm": "Logout",
+      "cancel": "Cancel"
     }
   },
 
@@ -295,6 +301,10 @@
   "Sidebar": {
     "subtitle": "Project Management",
     "role": "Admin",
+    "roles": {
+      "admin": "Admin",
+      "developer": "Developer"
+    },
     "sheetTitle": "Navigation Menu",
     "links": {
       "dashboard": "Dashboard",
@@ -303,6 +313,24 @@
       "tasks": "Tasks",
       "developers": "Developers"
     }
+  },
+
+  "Unauthorized": {
+    "title": "Access Denied",
+    "description": "You don't have permission to view this page or perform this action.",
+    "button": "Go back to "
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you’re looking for doesn’t exist or may have been moved.",
+    "button": "Go back home"
+  },
+  "Pages": {
+    "tasks": "Tasks Page",
+    "projects": "Projects Page",
+    "developers": "Developers Page",
+    "clients": "Clients Page",
+    "dashboard": "Dashboard Page"
   },
   "loading": "Loading...",
   "noData": "No data available."
