@@ -1,6 +1,6 @@
 type Developer = {
-  id: number;
+  id: string;
   name: string;
   skills: string[];
-  projectIds: number[];
+  projectIds?: string[];
 };

@@ -25,7 +25,7 @@ export default function TeamActivity({
   const tasksData: Task[] = tasks;
 
   const activities = tasksData?.map((task) => {
-    const developer = developers?.find((d) => d.id === task?.developerIds[0]);
+    const developer = developers?.find((d) => d.id === task?.developer);
 
     return {
       name: developer?.name,

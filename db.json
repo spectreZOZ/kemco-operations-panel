@@ -39,31 +39,84 @@
   ],
   "projects": [
     {
-      "id": "0638",
       "name": "Ziad Ahmed Project",
       "clientId": "b3c1",
       "status": "on-hold",
       "startDate": "2025-10-09",
       "endDate": "2025-10-12",
-      "progress": 0
+      "progress": 0,
+      "developers": [
+        "1"
+      ],
+      "id": "0638"
     }
   ],
   "tasks": [
     {
       "id": "1",
-      "projectId": 1,
-      "developerIds": 1,
+      "projectId": "0638",
+      "developer": "1",
       "title": "Design mockups",
-      "status": "To Do",
+      "description": "Design mockups for the frontend and backend",
+      "priority": "high",
+      "status": "to-do",
+      "dueDate": "2025-05-01",
       "createdAt": "2025-05-01T10:00:00Z"
     },
     {
       "id": "2",
-      "projectId": 1,
-      "developerIds": 2,
+      "projectId": "0638",
+      "developer": "2",
       "title": "Frontend coding",
-      "status": "In Progress",
+      "description": "Code the frontend for the project",
+      "priority": "medium",
+      "status": "done",
+      "dueDate": "2025-05-03",
       "createdAt": "2025-05-03T15:30:00Z"
+    },
+    {
+      "id": "3",
+      "projectId": "0638",
+      "developer": "1",
+      "title": "Backend coding",
+      "description": "Code the backend for the project",
+      "priority": "low",
+      "status": "done",
+      "dueDate": "2025-05-04",
+      "createdAt": "2025-05-04T09:45:00Z"
+    },
+    {
+      "id": "1aa3",
+      "status": "to-do",
+      "priority": "medium",
+      "title": "Test Flow",
+      "description": "Test the flow",
+      "dueDate": "2025-10-30",
+      "developer": "1",
+      "projectId": null,
+      "createdAt": "2025-10-24T16:21:45.647Z"
+    },
+    {
+      "id": "63ee",
+      "status": "in-progress",
+      "priority": "high",
+      "title": "test",
+      "description": "test",
+      "dueDate": "2025-10-30",
+      "developer": "3",
+      "projectId": null,
+      "createdAt": "2025-10-24T16:41:03.409Z"
+    },
+    {
+      "id": "4262",
+      "status": "to-do",
+      "priority": "medium",
+      "title": "test",
+      "description": "test",
+      "dueDate": "2025-10-27",
+      "developer": "2",
+      "projectId": null,
+      "createdAt": "2025-10-24T16:41:49.434Z"
     }
   ],
   "developers": [
@@ -75,7 +128,7 @@
         "Node.js"
       ],
       "projectIds": [
-        1
+        "0638"
       ]
     },
     {
@@ -85,20 +138,7 @@
         "Angular",
         "UI/UX"
       ],
-      "projectIds": [
-        1
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Charlie Puth",
-      "skills": [
-        "Python",
-        "Django"
-      ],
-      "projectIds": [
-        2
-      ]
+      "projectIds": []
     }
   ]
 }

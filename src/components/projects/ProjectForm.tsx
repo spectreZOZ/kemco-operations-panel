@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Controller, useForm } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -16,14 +17,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  useAddProjectMutation,
+  useUpdateProjectMutation,
+} from "@/src/services/projectsApi";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAddProjectMutation } from "@/src/services/projectsApi";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { useGetClientsQuery } from "@/src/services/clientsApi";
 import { useRouter } from "next/navigation";
+import { useToastMessage } from "@/src/hooks/useToastMessage";
 import { useTranslations } from "next-intl";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -34,13 +39,23 @@ type ProjectFormValues = {
   startDate: string;
   endDate: string;
   progress: number;
+  developers?: string[];
+  id?: string;
 };
 
-export default function ProjectForm() {
+export default function ProjectForm({
+  parentData,
+}: {
+  parentData?: ProjectFormValues;
+}) {
   const router = useRouter();
   const t = useTranslations("");
-  const [addProject, { isLoading }] = useAddProjectMutation();
+  const [addProject, { isLoading, isSuccess }] = useAddProjectMutation();
+  const [editProject, { isLoading: isUpdating, isSuccess: isUpdated }] =
+    useUpdateProjectMutation();
+
   const { data: clients = [] } = useGetClientsQuery("");
+  const { success, failure } = useToastMessage();
 
   const schema = yup.object({
     name: yup
@@ -69,7 +84,9 @@ export default function ProjectForm() {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
+    control,
+
     formState: { errors },
   } = useForm<ProjectFormValues>({
     resolver: yupResolver(schema),
@@ -78,19 +95,51 @@ export default function ProjectForm() {
 
   const onSubmit = async (data: ProjectFormValues) => {
     try {
-      await addProject({
-        name: data.name,
-        clientId: data.clientId,
-        status: data.status,
-        startDate: data.startDate,
-        endDate: data.endDate,
-        progress: data.progress,
-      }).unwrap();
-      router.push("/projects");
+      if (parentData) {
+        await editProject({
+          id: parentData.id || "",
+          name: data.name,
+          clientId: data.clientId,
+          status: data.status,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          progress: data.progress,
+          developers: parentData.developers || [],
+        }).unwrap();
+        success(
+          t("Toasts.updateSuccessfully", { name: parentData?.name || "" })
+        );
+      } else {
+        await addProject({
+          name: data.name,
+          clientId: data.clientId,
+          status: data.status,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          progress: data.progress,
+        }).unwrap();
+        success(t("Toasts.createSuccessfully", { name: data?.name || "" }));
+      }
+      setTimeout(() => {
+        router.push("/projects");
+      }, 1000);
     } catch (err) {
-      console.error("Error creating project", err);
+      if (parentData) {
+        failure(t("Toasts.updateFailed", { name: parentData?.name || "" }));
+      } else {
+        failure(t("Toasts.createFailed", { name: data?.name || "" }));
+      }
+      console.error("Error creating client", err);
     }
   };
+
+  useEffect(() => {
+    if (parentData) {
+      reset(parentData);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [parentData]);
 
   return (
     <div className="flex justify-center mt-12">
@@ -117,20 +166,32 @@ export default function ProjectForm() {
               <Label htmlFor="clientId">
                 {t("Projects.projectForm.fields.client")}
               </Label>
-              <Select onValueChange={(val) => setValue("clientId", val)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue
-                    placeholder={t("Projects.projectForm.placeholders.client")}
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  {clients.map((c: Client) => (
-                    <SelectItem key={c.id} value={String(c.id)}>
-                      {c.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Controller
+                control={control}
+                name="clientId"
+                render={({ field }) => (
+                  <Select
+                    value={field.value ? String(field.value) : ""}
+                    onValueChange={(val) => field.onChange(val)}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue
+                        placeholder={t(
+                          "Projects.projectForm.placeholders.client"
+                        )}
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {clients.map((c: Client) => (
+                        <SelectItem key={c.id} value={String(c.id)}>
+                          {c.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+
               {errors.clientId && (
                 <p className="text-red-500 text-xs">
                   {errors.clientId.message}
@@ -144,37 +205,42 @@ export default function ProjectForm() {
                 {" "}
                 {t("Projects.projectForm.fields.status")}
               </Label>
-              <Select
-                defaultValue="active"
-                onValueChange={(val) =>
-                  setValue("status", val as ProjectFormValues["status"])
-                }
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="active">
-                    {t("Projects.projectForm.status.active")}
-                  </SelectItem>
-                  <SelectItem value="on-hold">
-                    {" "}
-                    {t("Projects.projectForm.status.on-hold")}
-                  </SelectItem>
-                  <SelectItem value="done">
-                    {" "}
-                    {t("Projects.projectForm.status.done")}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <Controller
+                control={control}
+                name="status"
+                render={({ field }) => (
+                  <Select
+                    value={field.value || ""}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">
+                        {t("Projects.projectForm.status.active")}
+                      </SelectItem>
+                      <SelectItem value="on-hold">
+                        {" "}
+                        {t("Projects.projectForm.status.on-hold")}
+                      </SelectItem>
+                      <SelectItem value="done">
+                        {" "}
+                        {t("Projects.projectForm.status.done")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+
               {errors.status && (
                 <p className="text-red-500 text-xs">{errors.status.message}</p>
               )}
             </div>
 
             {/* Dates */}
-            <div className="flex gap-3">
-              <div className="flex flex-col w-1/2 space-y-1">
+            <div className="flex flex-col md:flex-row gap-3">
+              <div className="flex flex-col w-full md:w-1/2 space-y-1">
                 <Label htmlFor="startDate">
                   {" "}
                   {t("Projects.projectForm.fields.startDate")}
@@ -191,7 +257,7 @@ export default function ProjectForm() {
                   </p>
                 )}
               </div>
-              <div className="flex flex-col w-1/2 space-y-1">
+              <div className="flex flex-col w-full md:w-1/2 space-y-1">
                 <Label htmlFor="endDate">
                   {" "}
                   {t("Projects.projectForm.fields.endDate")}
@@ -237,10 +303,15 @@ export default function ProjectForm() {
               variant="outline"
               onClick={() => router.push("/projects")}
             >
-              Cancel
+              {t("Projects.projectForm.buttons.cancel")}{" "}
             </Button>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Saving…" : "Save"}
+            <Button
+              type="submit"
+              disabled={isLoading || isUpdating || isSuccess || isUpdated}
+            >
+              {isLoading || isUpdating
+                ? t("Projects.projectForm.buttons.saving")
+                : t("Projects.projectForm.buttons.save")}
             </Button>
           </CardFooter>
         </form>

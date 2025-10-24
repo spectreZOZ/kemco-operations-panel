@@ -65,6 +65,9 @@ export default function ProjectsTable({ data }: { data: Project[] }) {
             <TableHead className="text-start ">
               {t("Projects.table.endDate")}
             </TableHead>
+            <TableHead className="text-start">
+              {t("Projects.table.tasks")}
+            </TableHead>
             <TableHead className="text-start w-[250px]">
               {t("Projects.table.progress")}
             </TableHead>
@@ -85,12 +88,13 @@ export default function ProjectsTable({ data }: { data: Project[] }) {
                 <TableCell>{project.status || "-"}</TableCell>
                 <TableCell>{project.startDate || "-"}</TableCell>
                 <TableCell>{project.endDate || "-"}</TableCell>
+                <TableCell>{project.tasks?.length}</TableCell>
                 <TableCell className="">
                   <Progress value={project.progress} />
                   <h2 className="text-xs text-end">{project?.progress}%</h2>
                 </TableCell>
                 <TableCell className="flex justify-center gap-2">
-                  <Link href={`clients/edit/${project?.id}`}>
+                  <Link href={`projects/edit/${project?.id}`}>
                     <Button variant="outline" size="sm">
                       {t("Projects.buttons.edit")}
                     </Button>

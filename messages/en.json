@@ -110,6 +110,7 @@
   "Clients": {
     "title": "Clients",
     "addClient": "Add Client",
+    "editClient": "Edit Client",
 
     "clientForm": {
       "title": "Add New Client",
@@ -155,6 +156,7 @@
   "Projects": {
     "title": "Projects",
     "addProject": "Add Project",
+    "editProject": "Edit Project",
 
     "projectForm": {
       "title": "Add New Project",
@@ -164,7 +166,8 @@
         "status": "Status",
         "startDate": "Start Date",
         "endDate": "End Date",
-        "progress": "Progress"
+        "progress": "Progress",
+        "developers": "Developers"
       },
       "placeholders": {
         "client": "Select a client",
@@ -182,6 +185,7 @@
         "startDateRequired": "Start date is required",
         "endDateRequired": "End date is required",
         "progressRequired": "Progress is required",
+        "developersRequired": "Select at least one developer",
         "minProgress": "Progress must be between 0 and 100"
       },
       "noClients": "No clients found",
@@ -201,12 +205,72 @@
       "startDate": "Start Date",
       "endDate": "End Date",
       "progress": "Progress",
+      "tasks": "Tasks",
       "actions": "Actions"
     },
     "buttons": {
       "edit": "Edit",
       "delete": "Delete"
     }
+  },
+
+  "Tasks": {
+    "title": "Tasks",
+    "newTask": "New Task",
+    "editTask": "Edit Task",
+    "noTasksFound": "No tasks found",
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "status": {
+      "all": "All",
+      "to-do": "To-Do",
+      "in-progress": "In Progress",
+      "done": "Done"
+    },
+    "createdAt": "Created At",
+
+    "taskForm": {
+      "title": "Add New Task",
+      "fields": {
+        "project": "Project",
+        "developer": "Developer",
+        "title": "Title",
+        "description": "Description",
+        "priority": "Priority",
+        "dueDate": "Due Date",
+        "status": "Status"
+      },
+      "placeholders": {
+        "project": "Select a project",
+        "developer": "Select a developer"
+      },
+      "validation": {
+        "projectRequired": "Project is required",
+        "developerRequired": "Developer is required",
+        "titleRequired": "Title is required",
+        "descriptionRequired": "Description is required",
+        "priorityRequired": "Priority is required",
+        "statusRequired": "Status is required",
+        "dueDateRequired": "Due date is required"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…"
+      }
+    }
+  },
+
+  "Developers": {
+    "title": "Developers",
+    "unassign": "Unassign",
+    "assign": "Assign",
+    "available": "Available",
+    "manageDevelopers": "Manage Developers",
+    "assignOrUnassign": "Assign or unassign developers for these projects."
   },
 
   "Modals": {

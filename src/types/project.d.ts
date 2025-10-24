@@ -1,10 +1,11 @@
 type Project = {
-  id: number;
+  id: string;
   name: string;
-  clientId: number;
-  status: "Active" | "Planning" | "Completed"; // you can adjust enum values as needed
+  clientId: string;
+  status: "active" | "on-hold" | "done"; // you can adjust enum values as needed
   startDate: string;
   endDate: string;
   progress: number;
-  developerIds: number[];
+  tasks?: Task[];
+  developers: string[];
 };

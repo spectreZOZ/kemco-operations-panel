@@ -31,8 +31,8 @@ type ClientFormValues = {
   company: string;
   email: string;
   phone: string;
-  projects: number[];
-  id?: number;
+  projects: string[];
+  id?: string;
 };
 
 export default function ClientForm({
@@ -48,9 +48,7 @@ export default function ClientForm({
   const [editClient, { isLoading: isUpdating }] = useUpdateClientMutation();
   const { data: allProjects = [] } = useGetProjectsQuery("");
 
-  const openProjects = allProjects.filter(
-    (p: Project) => p.status !== "Completed"
-  );
+  const openProjects = allProjects.filter((p: Project) => p.status !== "done");
 
   const schema = yup.object({
     name: yup.string().required(t("errors.nameRequired")),
@@ -62,7 +60,7 @@ export default function ClientForm({
     phone: yup.string().required(t("errors.phoneRequired")),
     projects: yup
       .array()
-      .of(yup.number().required())
+      .of(yup.string().required())
       .required(t("errors.projectsRequired"))
       .min(1, t("errors.projectsRequired")),
   });
@@ -81,7 +79,7 @@ export default function ClientForm({
 
   const selectedProjects = watch("projects");
 
-  const toggleProject = (id: number) => {
+  const toggleProject = (id: string) => {
     const current = new Set(selectedProjects);
 
     if (current.has(id)) {
@@ -92,8 +90,6 @@ export default function ClientForm({
 
     setValue("projects", Array.from(current));
   };
-
-  console.log(selectedProjects, "selectedProjects");
 
   const onSubmit = async (data: ClientFormValues) => {
     try {
@@ -108,7 +104,7 @@ export default function ClientForm({
       }
       setTimeout(() => {
         router.push("/clients");
-      }, 2000);
+      }, 1000);
     } catch (err) {
       if (parentData) {
         failure(t2("Toasts.updateFailed", { name: parentData?.name || "" }));
@@ -122,11 +118,7 @@ export default function ClientForm({
   useEffect(() => {
     if (parentData) {
       reset(parentData);
-      setValue(
-        "projects",
-        // @ts-expect-error: error
-        parentData.projects?.map((p) => p?.toString()) || []
-      );
+      setValue("projects", parentData.projects?.map((p) => p) || []);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,7 +128,9 @@ export default function ClientForm({
     <div className="flex justify-center mt-12">
       <Card className="w-full max-w-lg">
         <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
+          <CardTitle>
+            {parentData ? t2("Clients.editClient") : t("title")}
+          </CardTitle>
         </CardHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -210,8 +204,10 @@ export default function ClientForm({
             >
               {t("buttons.cancel")}
             </Button>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? t("buttons.saving") : t("buttons.save")}
+            <Button type="submit" disabled={isLoading || isUpdating}>
+              {isLoading || isUpdating
+                ? t("buttons.saving")
+                : t("buttons.save")}
             </Button>
           </CardFooter>
         </form>

@@ -10,7 +10,7 @@ export const projectsApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Project"],
     }),
-    getProject: builder.query<Project, number>({
+    getProject: builder.query<Project, string>({
       query: (id) => ({
         url: `projects/${id}?_expand=client&_embed=tasks`,
         method: "GET",
@@ -25,7 +25,7 @@ export const projectsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Project"],
     }),
-    updateProject: builder.mutation<Project, Project>({
+    updateProject: builder.mutation<Project, Omit<Project, "developer">>({
       query: ({ id, ...rest }) => ({
         url: `projects/${id}`,
         method: "PUT",
@@ -33,7 +33,7 @@ export const projectsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Project"],
     }),
-    deleteProject: builder.mutation<Project, number>({
+    deleteProject: builder.mutation<Project, string>({
       query: (id) => ({
         url: `projects/${id}`,
         method: "DELETE",

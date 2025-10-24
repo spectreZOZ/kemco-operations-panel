@@ -109,6 +109,7 @@
   "Clients": {
     "title": "العملاء",
     "addClient": "إضافة عميل",
+    "editClient": "تعديل العميل",
     "clientForm": {
       "title": "إضافة عميل جديد",
       "fields": {
@@ -152,6 +153,7 @@
   "Projects": {
     "title": "المشاريع",
     "addProject": "إضافة مشروع",
+    "editProject": "تعديل المشروع",
     "projectForm": {
       "title": "إضافة مشروع جديد",
       "fields": {
@@ -160,7 +162,8 @@
         "status": "الحالة",
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
-        "progress": "التقدم"
+        "progress": "التقدم",
+        "developers": "المطورون"
       },
       "placeholders": {
         "client": "حدد عميل",
@@ -178,6 +181,7 @@
         "startDateRequired": "تاريخ البدء مطلوب",
         "endDateRequired": "تاريخ الانتهاء مطلوب",
         "progressRequired": "التقدم مطلوب",
+        "developersRequired": "يجب اختيار مطور واحد على الاقل",
         "minProgress": "التقدم يجب ان يكون بين 0 و 100"
       },
       "noClients": "لم يتم العثور على عملاء",
@@ -196,12 +200,71 @@
       "startDate": "تاريخ البدء",
       "endDate": "تاريخ الانتهاء",
       "progress": "التقدم",
+      "tasks": "المهام",
       "actions": "الإجراءات"
     },
     "buttons": {
       "edit": "تعديل",
       "delete": "حذف"
     }
+  },
+
+  "Tasks": {
+    "title": "المهام",
+    "newTask": "مهمة جديدة",
+    "editTask": "تعديل المهمة",
+    "noTasksFound": "لم يتم العثور على مهام",
+    "priorities": {
+      "low": "منخفضة",
+      "medium": "متوسطة",
+      "high": "عالية"
+    },
+    "status": {
+      "all": "الجميع",
+      "to-do": "قيد الانتظار",
+      "in-progress": "قيد التنفيذ",
+      "done": "تم الإنجاز"
+    },
+    "createdAt": "تاريخ الانشاء",
+    "taskForm": {
+      "title": "إضافة مهمة جديدة",
+      "fields": {
+        "project": "المشروع",
+        "developer": "المطور",
+        "title": "العنوان",
+        "description": "الوصف",
+        "priority": "الأولوية",
+        "dueDate": "تاريخ الانتهاء",
+        "status": "الحالة"
+      },
+      "placeholders": {
+        "project": "اختر مشروعاً",
+        "developer": "اختر مطوراً"
+      },
+      "validation": {
+        "projectRequired": "المشروع مطلوب",
+        "developerRequired": "المطور مطلوب",
+        "titleRequired": "العنوان مطلوب",
+        "descriptionRequired": "الوصف مطلوب",
+        "priorityRequired": "الأولوية مطلوبة",
+        "statusRequired": "الحالة مطلوبة",
+        "dueDateRequired": "تاريخ الانتهاء مطلوب"
+      },
+      "buttons": {
+        "cancel": "اغلاق",
+        "save": "حفظ",
+        "saving": "جاري الحفظ..."
+      }
+    }
+  },
+
+  "Developers": {
+    "title": "المطورين",
+    "unassign": "الغاء التعيين",
+    "assign": "تعيين",
+    "available": "متاح",
+    "manageDevelopers": "ادارة المطورين",
+    "assignOrUnassign": "تعيين او الغاء التعيين لهذه المشاريع."
   },
 
   "Modals": {

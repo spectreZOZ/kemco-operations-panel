@@ -1,8 +1,11 @@
 type Task = {
-  id: number;
-  projectId: number;
-  developerIds: number[];
+  id: string;
+  projectId: string;
+  developer: string;
   title: string;
-  status: "To Do" | "In Progress" | "Done";
+  description: string;
+  status: "to-do" | "in-progress" | "done";
+  priority: "low" | "medium" | "high";
+  dueDate: string;
   createdAt: string;
 };
