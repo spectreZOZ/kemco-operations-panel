@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { UserAccess, canAccess, getAuthUser } from "@/src/utils/auth";
 
 import { Badge } from "../ui/badge";
 import { Edit } from "lucide-react";
@@ -21,6 +22,11 @@ const TaskCard = ({ task }: Props) => {
     (d: Developer) => d.id === task?.developer
   );
 
+  const authUser = getAuthUser();
+  const role: keyof typeof UserAccess = authUser?.role ?? "guest";
+
+  const canEdit = canAccess(role, "tasks", "PUT");
+
   return (
     <div className="bg-white dark:bg-[#777777] p-3 rounded-lg shadow-2xs flex flex-col gap-1 justify-between w-full h-full">
       <div>
@@ -28,10 +34,12 @@ const TaskCard = ({ task }: Props) => {
           <h2 className="font-medium">{task?.title}</h2>
           <div className="space-x-1 flex items-center">
             {" "}
-            <Edit
-              size={20}
-              onClick={() => router.push(`tasks/edit/${task?.id}`)}
-            />
+            {canEdit && (
+              <Edit
+                size={20}
+                onClick={() => router.push(`tasks/edit/${task?.id}`)}
+              />
+            )}
             {task?.priority && (
               <Badge
                 variant={

@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { UserAccess, canAccess, getAuthUser } from "@/src/utils/auth";
 
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "../modals/ConfirmDialog";
@@ -34,6 +35,12 @@ export default function ProjectsTable({ data }: { data: Project[] }) {
       client: clients?.find((c: Client) => c.id === project.clientId),
     };
   });
+
+  const authUser = getAuthUser();
+  const role: keyof typeof UserAccess = authUser?.role ?? "guest";
+
+  const canEdit = canAccess(role, "projects", "PUT");
+  const canDelete = canAccess(role, "projects", "DELETE");
 
   useEffect(() => {
     if (isSuccess)
@@ -94,30 +101,34 @@ export default function ProjectsTable({ data }: { data: Project[] }) {
                   <h2 className="text-xs text-end">{project?.progress}%</h2>
                 </TableCell>
                 <TableCell className="flex justify-center gap-2">
-                  <Link href={`projects/edit/${project?.id}`}>
-                    <Button variant="outline" size="sm">
-                      {t("Projects.buttons.edit")}
-                    </Button>
-                  </Link>
-
-                  <ConfirmDialog
-                    title={t("Modals.delete.title", { name: project.name })}
-                    description={t("Modals.delete.description", {
-                      name: project.name,
-                    })}
-                    trigger={
-                      <Button variant="destructive" size="sm">
-                        {t("Projects.buttons.delete")}
+                  {canEdit && (
+                    <Link href={`projects/edit/${project?.id}`}>
+                      <Button variant="outline" size="sm">
+                        {t("Projects.buttons.edit")}
                       </Button>
-                    }
-                    onConfirm={async () => {
-                      await deleteProject(project?.id).unwrap();
-                    }}
-                    confirmLabel={t("Modals.delete.confirm")}
-                    cancelLabel={t("Modals.delete.cancel")}
-                    loadingLabel={t("loading")}
-                    loading={isLoading}
-                  />
+                    </Link>
+                  )}
+
+                  {canDelete && (
+                    <ConfirmDialog
+                      title={t("Modals.delete.title", { name: project.name })}
+                      description={t("Modals.delete.description", {
+                        name: project.name,
+                      })}
+                      trigger={
+                        <Button variant="destructive" size="sm">
+                          {t("Projects.buttons.delete")}
+                        </Button>
+                      }
+                      onConfirm={async () => {
+                        await deleteProject(project?.id).unwrap();
+                      }}
+                      confirmLabel={t("Modals.delete.confirm")}
+                      cancelLabel={t("Modals.delete.cancel")}
+                      loadingLabel={t("loading")}
+                      loading={isLoading}
+                    />
+                  )}
                 </TableCell>
               </TableRow>
             ))

@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { UserAccess, canAccess, getAuthUser } from "@/src/utils/auth";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,12 @@ export default function ClientsTable({ data }: { data: Client[] }) {
   const { success, failure } = useToastMessage();
   const [deleteClient, { isLoading, isSuccess, error, data: deleted }] =
     useDeleteClientMutation();
+
+  const authUser = getAuthUser();
+  const role: keyof typeof UserAccess = authUser?.role ?? "guest";
+
+  const canEdit = canAccess(role, "clients", "PUT");
+  const canDelete = canAccess(role, "clients", "DELETE");
 
   useEffect(() => {
     if (isSuccess)
@@ -77,30 +84,34 @@ export default function ClientsTable({ data }: { data: Client[] }) {
                   </Badge>
                 </TableCell>
                 <TableCell className="flex justify-center gap-2">
-                  <Link href={`clients/edit/${client?.id}`}>
-                    <Button variant="outline" size="sm">
-                      {t("Clients.buttons.edit")}
-                    </Button>
-                  </Link>
-
-                  <ConfirmDialog
-                    title={t("Modals.delete.title", { name: client.name })}
-                    description={t("Modals.delete.description", {
-                      name: client.name,
-                    })}
-                    trigger={
-                      <Button variant="destructive" size="sm">
-                        {t("Clients.buttons.delete")}
+                  {canEdit && (
+                    <Link href={`clients/edit/${client?.id}`}>
+                      <Button variant="outline" size="sm">
+                        {t("Clients.buttons.edit")}
                       </Button>
-                    }
-                    onConfirm={async () => {
-                      await deleteClient(client?.id).unwrap();
-                    }}
-                    confirmLabel={t("Modals.delete.confirm")}
-                    cancelLabel={t("Modals.delete.cancel")}
-                    loadingLabel={t("loading")}
-                    loading={isLoading}
-                  />
+                    </Link>
+                  )}
+
+                  {canDelete && (
+                    <ConfirmDialog
+                      title={t("Modals.delete.title", { name: client.name })}
+                      description={t("Modals.delete.description", {
+                        name: client.name,
+                      })}
+                      trigger={
+                        <Button variant="destructive" size="sm">
+                          {t("Clients.buttons.delete")}
+                        </Button>
+                      }
+                      onConfirm={async () => {
+                        await deleteClient(client?.id).unwrap();
+                      }}
+                      confirmLabel={t("Modals.delete.confirm")}
+                      cancelLabel={t("Modals.delete.cancel")}
+                      loadingLabel={t("loading")}
+                      loading={isLoading}
+                    />
+                  )}
                 </TableCell>
               </TableRow>
             ))
